@@ -523,7 +523,7 @@ bool AP_Mission::read_cmd_from_storage(uint16_t index, Mission_Command& cmd) con
         uint16_t pos_in_storage = 4 + (index * AP_MISSION_EEPROM_COMMAND_SIZE);
 
         PackedContent packed_content;
-
+              
         uint8_t b1 = _storage.read_byte(pos_in_storage);
         if (b1 == 0) {
             cmd.id = _storage.read_uint16(pos_in_storage+1);

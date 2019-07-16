@@ -561,7 +561,13 @@ void Copter::allocate_motors(void)
     }
     AP_Param::load_object_from_eeprom(pos_control, pos_control->var_info);
 
-    wp_nav = new AC_WPNav(inertial_nav, *ahrs_view, *pos_control, *attitude_control);
+    traj_track=new AC_TrajTrack(*ahrs_view, inertial_nav, *motors, *attitude_control);
+    if (traj_track==nullptr){
+        AP_HAL::panic("Unable to allocate TrajectoryTrack");
+    }
+    AP_Param::load_object_from_eeprom(traj_track, traj_track->var_info);
+
+    wp_nav = new AC_WPNav(inertial_nav, *ahrs_view, *pos_control, *attitude_control,*traj_track);
     if (wp_nav == nullptr) {
         AP_HAL::panic("Unable to allocate WPNav");
     }

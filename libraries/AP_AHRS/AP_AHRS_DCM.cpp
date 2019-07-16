@@ -473,7 +473,7 @@ bool AP_AHRS_DCM::use_compass(void)
 }
 
 // yaw drift correction using the compass or GPS
-// this function prodoces the _omega_yaw_P vector, and also
+// this function produces the _omega_yaw_P vector, and also
 // contributes to the _omega_I.z long term yaw drift estimate
 void
 AP_AHRS_DCM::drift_correction_yaw(void)

@@ -1307,6 +1307,7 @@ void AP_Param::setup_sketch_defaults(void)
     setup();
     for (uint16_t i=0; i<_num_vars; i++) {
         uint8_t type = _var_info[i].type;
+        AP_Param::Info info= _var_info[i];
         if (type <= AP_PARAM_FLOAT) {
             ptrdiff_t base;
             if (get_base(_var_info[i], base)) {

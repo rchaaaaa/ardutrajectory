@@ -145,6 +145,12 @@ public:
         return _v[i];
     }
 
+    // <T> & operator[](uint8_t i,uint8_t j){
+    //     Vector3<T>* _v=&a;
+    //     assert(i*3+j>=0&&i*3+j<9);
+    //     return _v[i][j];
+    // }
+
     // multiplication by a vector
     Vector3<T> operator         *(const Vector3<T> &v) const;
 

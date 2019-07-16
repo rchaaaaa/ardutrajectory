@@ -537,6 +537,7 @@ void SITL_State::_simulator_servos(struct sitl_input &input)
 
 void SITL_State::init(int argc, char * const argv[])
 {
+    // sleep(3);
     pwm_input[0] = pwm_input[1] = pwm_input[3] = 1500;
     pwm_input[4] = pwm_input[7] = 1800;
     pwm_input[2] = pwm_input[5] = pwm_input[6] = 1000;

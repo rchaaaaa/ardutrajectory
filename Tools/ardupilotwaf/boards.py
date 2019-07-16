@@ -215,7 +215,7 @@ class Board:
             ]
         else:
             env.CXXFLAGS += [
-                '-Werror=unused-but-set-variable'
+#                '-Werror=unused-but-set-variable'
             ]
 
         if cfg.env.DEBUG:
@@ -451,7 +451,7 @@ class chibios(Board):
             '-Werror=uninitialized',
             '-Werror=init-self',
             '-Wframe-larger-than=1024',
-            '-Werror=unused-but-set-variable',
+#            '-Werror=unused-but-set-variable',
             '-Wno-missing-field-initializers',
             '-Wno-trigraphs',
             '-fno-strict-aliasing',

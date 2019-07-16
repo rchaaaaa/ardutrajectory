@@ -37,7 +37,7 @@ bool Mode::do_user_takeoff(float takeoff_alt_cm, bool must_navigate)
         return false;
     }
 
-    if (!do_user_takeoff_start(takeoff_alt_cm)) {
+     if (!do_user_takeoff_start(takeoff_alt_cm)) {
         return false;
     }
 

@@ -55,6 +55,10 @@ public:
         return pos_control->get_desired_velocity();
     }
 
+    void set_traj_start_time(int takeoff_time){
+        traj_track->set_traj_start_time(takeoff_time);
+    }
+
 protected:
 
     // navigation support functions
@@ -90,6 +94,7 @@ protected:
     AC_WPNav *&wp_nav;
     AC_Loiter *&loiter_nav;
     AC_PosControl *&pos_control;
+    AC_TrajTrack *&traj_track;
     AP_InertialNav &inertial_nav;
     AP_AHRS &ahrs;
     AC_AttitudeControl_t *&attitude_control;
@@ -337,6 +342,8 @@ public:
     // for GCS_MAVLink to call:
     bool do_guided(const AP_Mission::Mission_Command& cmd);
 
+    AP_Trajectory trajectory;
+
     AP_Mission mission{
         FUNCTOR_BIND_MEMBER(&ModeAuto::start_command, bool, const AP_Mission::Mission_Command &),
         FUNCTOR_BIND_MEMBER(&ModeAuto::verify_command, bool, const AP_Mission::Mission_Command &),
@@ -368,6 +375,7 @@ private:
     void nav_guided_run();
     void loiter_run();
     void loiter_to_alt_run();
+    void trajectory_track_run();
 
     Location loc_from_cmd(const AP_Mission::Mission_Command& cmd) const;
 

@@ -207,6 +207,16 @@ constexpr int8_t Copter::_failsafe_priorities[7];
 void Copter::setup()
 {
     // Load the default values of variables listed in var_info[]s
+    hal.console->printf("wait for 10 seconds\n");
+    // sleep(10);
+    // double z=0;
+    // for (size_t i = 0; i < 900000000; i++)
+    // {
+    //     z=i*(i+1)/(i+2);
+    //     z-=1000;S
+    //     z/=9.7;
+    // }
+    // hal.console->printf("%f",z);
     AP_Param::setup_sketch_defaults();
 
     // setup storage layout for copter

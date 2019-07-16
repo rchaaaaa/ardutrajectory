@@ -521,6 +521,10 @@ const AP_Param::Info Copter::var_info[] = {
     // @Path: ../libraries/AC_AttitudeControl/AC_PosControl.cpp
     GOBJECTPTR(pos_control, "PSC", AC_PosControl),
 
+    // @Group: PSC
+    // @Path: ../libraries/AC_AttitudeControl/AC_TrajTrack.cpp
+    GOBJECTPTR(traj_track, "TRAJ_", AC_TrajTrack),
+
     // @Group: SR0_
     // @Path: GCS_Mavlink.cpp
     GOBJECTN(_gcs._chan[0],  gcs0,       "SR0_",     GCS_MAVLINK),

@@ -121,7 +121,6 @@ static void sig_alrm(int signum)
 void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
 {
     assert(callbacks);
-
     _sitl_state->init(argc, argv);
     scheduler->init();
     uartA->begin(115200);

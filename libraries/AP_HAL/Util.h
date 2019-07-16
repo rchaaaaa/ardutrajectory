@@ -63,6 +63,7 @@ public:
         uint16_t semaphore_line;
         uint32_t spi_count;
         uint32_t i2c_count;
+        uint16_t trajectory_num;
     };
     struct PersistentData persistent_data;
 

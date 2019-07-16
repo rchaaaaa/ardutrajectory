@@ -88,11 +88,12 @@ const StorageManager::StorageArea StorageManager::layout_copter[STORAGE_NUM_AREA
     { StorageRally,    9472,   300},
     { StorageFence,    9772,   256},
     { StorageMission, 10028,  6228}, // leave 128 byte gap for expansion
+    { StorageTrajectory,  30720, 10240},
 #endif
 };
 
 // setup default layout
-const StorageManager::StorageArea *StorageManager::layout = layout_default;
+const StorageManager::StorageArea *StorageManager::layout = layout_copter;
 
 /*
   erase all storage

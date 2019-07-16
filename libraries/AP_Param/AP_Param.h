@@ -29,6 +29,8 @@
 #include <StorageManager/StorageManager.h>
 
 #include "float.h"
+#include <vector>
+
 
 #define AP_MAX_NAME_SIZE 16
 
@@ -609,6 +611,7 @@ private:
     static uint16_t             _num_vars;
     static uint16_t             _parameter_count;
     static const struct Info *  _var_info;
+    // std::vector<Info> var_info_vec;
 
     /*
       list of overridden values from load_defaults_file()

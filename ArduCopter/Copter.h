@@ -50,6 +50,7 @@
 #include <AC_AttitudeControl/AC_AttitudeControl_Multi.h> // Attitude control library
 #include <AC_AttitudeControl/AC_AttitudeControl_Heli.h> // Attitude control library for traditional helicopter
 #include <AC_AttitudeControl/AC_PosControl.h>      // Position control library
+#include <AC_AttitudeControl/AC_TrajTrack.h>
 #include <AP_Motors/AP_Motors.h>          // AP Motors library
 #include <AP_Stats/AP_Stats.h>     // statistics library
 #include <AP_RSSI/AP_RSSI.h>                   // RSSI Library
@@ -78,6 +79,7 @@
 #include <AP_TempCalibration/AP_TempCalibration.h>
 #include <AC_AutoTune/AC_AutoTune.h>
 #include <AP_Common/AP_FWVersion.h>
+#include <vector>
 
 // Configuration
 #include "defines.h"
@@ -324,7 +326,7 @@ private:
     // GCS selection
     GCS_Copter _gcs; // avoid using this; use gcs()
     GCS_Copter &gcs() { return _gcs; }
-
+    // std::vector<AP_Param::Info> var_info_vec;
     // User variables
 #ifdef USERHOOK_VARIABLES
 # include USERHOOK_VARIABLES
@@ -464,6 +466,7 @@ private:
     // To-Do: move inertial nav up or other navigation variables down here
     AC_AttitudeControl_t *attitude_control;
     AC_PosControl *pos_control;
+    AC_TrajTrack *traj_track;
     AC_WPNav *wp_nav;
     AC_Loiter *loiter_nav;
 #if MODE_CIRCLE_ENABLED == ENABLED
@@ -868,6 +871,7 @@ private:
     void userhook_auxSwitch1(uint8_t ch_flag);
     void userhook_auxSwitch2(uint8_t ch_flag);
     void userhook_auxSwitch3(uint8_t ch_flag);
+    
 
 #if OSD_ENABLED == ENABLED
     void publish_osd_info();
