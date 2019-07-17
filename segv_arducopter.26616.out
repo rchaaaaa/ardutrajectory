@@ -1,0 +1,165 @@
+Registered pretty printers for UE4 classes
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+0x00007f3af746607a in __GI___waitpid (pid=26738, stat_loc=stat_loc@entry=0x7ffecc8d3d10, options=options@entry=0) at ../sysdeps/unix/sysv/linux/waitpid.c:29
+29	../sysdeps/unix/sysv/linux/waitpid.c: 没有那个文件或目录.
+#0  0x00007f3af746607a in __GI___waitpid (pid=26738, stat_loc=stat_loc@entry=0x7ffecc8d3d10, options=options@entry=0) at ../sysdeps/unix/sysv/linux/waitpid.c:29
+        resultvar = 18446744073709551104
+        sc_ret = <optimized out>
+#1  0x00007f3af73defbb in do_system (line=<optimized out>) at ../sysdeps/posix/system.c:148
+        __result = <optimized out>
+        _buffer = {__routine = 0x7f3af73df2b0 <cancel_handler>, __arg = 0x7ffecc8d3cec, __canceltype = 0, __prev = 0x0}
+        _avail = 1
+        status = 0
+        save = <optimized out>
+        pid = 26738
+        sa = {__sigaction_handler = {sa_handler = 0x1, sa_sigaction = 0x1}, sa_mask = {__val = {65536, 0 <repeats 15 times>}}, sa_flags = 0, sa_restorer = 0x0}
+        omask = {__val = {1024, 0, 0, 0, 0, 0, 4210784, 140732330233856, 0, 0, 140732330230864, 139891232929783, 0, 206158430232, 140732330229360, 140732330229168}}
+#2  0x000000000051e0cc in AP_HAL::dump_stack_trace () at ../../libraries/AP_HAL_SITL/system.cpp:90
+        dumpstack = 0x615c82 "Tools/scripts/dumpstack"
+        statbuf = {st_dev = 2054, st_ino = 3678411, st_nlink = 1, st_mode = 33261, st_uid = 1000, st_gid = 1000, __pad0 = 0, st_rdev = 0, st_size = 262, st_blksize = 4096, st_blocks = 8, st_atim = {tv_sec = 1560927358, tv_nsec = 984452312}, st_mtim = {tv_sec = 1560927329, tv_nsec = 536341455}, st_ctim = {tv_sec = 1560927329, tv_nsec = 536341455}, __glibc_reserved = {0, 0, 0}}
+        paths = {0x615c82 "Tools/scripts/dumpstack", 0x615c9a "APM/Tools/scripts/dumpstack"}
+        cmd = "sh Tools/scripts/dumpstack 26616 >segv_arducopter.26616.out 2>&1\000\000\000\000\000\000\000\000 ", '\000' <repeats 11 times>, "\376\177\000\000\000\000\000\000\000\000\000\000P@\215", <incomplete sequence \314>
+        progname = "/home/rc/workspace/Git/aaaaa/ardupilot/build/sitl/bin\000arducopter\000\377\377\377\377\377\377\377\000\000\000\000\002\000\000\000\377\377\377\377\377\377\377\377\021v`\000\000\000\000\000\b\254", <incomplete sequence \371\217>
+        p = 0x7ffecc8d4005 ""
+        n = 64
+        output_filepath = "segv_arducopter.26616.out\000\000\000:\177"
+        fd = 0
+        buf = "\b\000\000\000\000\000\000\000\020\000\000\000\060\000\000\000\260F\215\314\376\177\000\000\360E\215\314\376\177\000\000\224@\215\314\376\177\000\000\030\000\000\000\060\000\000\000\020G\215\314\376\177\000\000PF\215\314\376\177\000\000\340F\215\314\376\177\000\000 F\215\314\376\177", '\000' <repeats 14 times>, "\002", '\000' <repeats 11 times>, "\300\224D\370:\177\000\000\000B\215\314\376\177\000\000\250@?\370:\177\000\000\000\000\000\000\000\000\000\000h\221D\370:\177\000\000(B\215\314\376\177\000\000\037\313\"\370:\177\000\000\005\000\000\000\000\000\000\000\250@?\370:\177\000\000\001", '\000' <repeats 15 times>, "\001\000\000\000\000\000\000\000"...
+#3  0x000000000051e99a in _sig_segv (signum=11) at ../../libraries/AP_HAL_SITL/SITL_cmdline.cpp:52
+No locals.
+#4  <signal handler called>
+No locals.
+#5  0x00000000004035a0 in log@plt ()
+No symbol table info available.
+#6  0x0000000000521f79 in SITL::Aircraft::rand_normal (mean=0, stddev=1) at ../../libraries/SITL/SIM_Aircraft.cpp:342
+        y = 0.17766258175375982
+        x = 0.97961018792335408
+        r = 0.99120011323864043
+        d = 1.6041981089361337e-314
+        n1 = 6.9531009627164488e-310
+        result = 2.2912279503918433e-317
+        n2 = 1.217449027566069
+        n2_cached = 0
+#7  0x00000000005c1fb0 in SITL::Frame::calculate_forces (this=0x8889e0 <supported_frames>, aircraft=..., input=..., rot_accel=..., body_accel=...) at ../../libraries/SITL/SIM_Frame.cpp:272
+        thrust = {x = 0, y = 0, z = -17.0334473}
+        gyro_noise = 0.00174532924
+        accel_noise = 0.300000012
+        noise_scale = 0.590555549
+#8  0x0000000000530944 in SITL::MultiCopter::calculate_forces (this=0x10f0470, input=..., rot_accel=..., body_accel=...) at ../../libraries/SITL/SIM_Multicopter.cpp:51
+No locals.
+#9  0x00000000005309de in SITL::MultiCopter::update (this=0x10f0470, input=...) at ../../libraries/SITL/SIM_Multicopter.cpp:66
+        rot_accel = {x = -0.0972166359, y = 0.0965308696, z = 1.45611705e-06}
+#10 0x0000000000514987 in HALSITL::SITL_State::_fdm_input_local (this=0x883ec0 <sitlState>) at ../../libraries/AP_HAL_SITL/SITL_State.cpp:333
+        input = {servos = {1632, 1631, 1632, 1631, 0 <repeats 12 times>}, wind = {speed = 0, direction = 179.999817, turbulence = 0, dir_z = 0}}
+#11 0x0000000000514007 in HALSITL::SITL_State::_fdm_input_step (this=0x883ec0 <sitlState>) at ../../libraries/AP_HAL_SITL/SITL_State.cpp:153
+        last_pwm_input = 74060
+#12 0x00000000005143b3 in HALSITL::SITL_State::wait_clock (this=0x883ec0 <sitlState>, wait_time_usec=74073159) at ../../libraries/AP_HAL_SITL/SITL_State.cpp:207
+No locals.
+#13 0x0000000000515b86 in HALSITL::Scheduler::delay_microseconds (this=0x886920 <sitlScheduler>, usec=1133) at ../../libraries/AP_HAL_SITL/Scheduler.cpp:60
+        dtime = 0
+        start = 74072026
+#14 0x000000000045e80f in AP_HAL::Scheduler::delay_microseconds_boost (this=0x886920 <sitlScheduler>, us=1133) at ../../libraries/AP_HAL/Scheduler.h:30
+No locals.
+#15 0x00000000004636d0 in AP_InertialSensor::wait_for_sample (this=0x87a0d8 <copter+5688>) at ../../libraries/AP_InertialSensor/AP_InertialSensor.cpp:1379
+        wait_usec = 1133
+        now2 = 0
+        now = 74072026
+#16 0x0000000000484f80 in AP_Scheduler::loop (this=0x8793e8 <copter+2376>) at ../../libraries/AP_Scheduler/AP_Scheduler.cpp:236
+        sample_time_us = 0
+        loop_us = 8912256
+        time_available = 0
+#17 0x000000000040914c in Copter::loop (this=0x878aa0 <copter>) at ../../ArduCopter/Copter.cpp:223
+No locals.
+#18 0x0000000000512e7c in HAL_SITL::run (this=0x887200 <AP_HAL::get_HAL()::hal>, argc=11, argv=0x7ffecc8d5008, callbacks=0x878aa0 <copter>) at ../../libraries/AP_HAL_SITL/HAL_SITL_Class.cpp:176
+        now = 74072
+        __PRETTY_FUNCTION__ = "virtual void HAL_SITL::run(int, char* const*, AP_HAL::HAL::Callbacks*) const"
+        new_argv_offset = 11 '\v'
+        using_watchdog = false
+        last_watchdog_save = 2518
+#19 0x000000000040ac1e in main (argc=11, argv=0x7ffecc8d5008) at ../../ArduCopter/Copter.cpp:615
+No locals.
+
+Thread 1 (Thread 0x7f3af83f1740 (LWP 26616)):
+#0  0x00007f3af746607a in __GI___waitpid (pid=26738, stat_loc=stat_loc@entry=0x7ffecc8d3d10, options=options@entry=0) at ../sysdeps/unix/sysv/linux/waitpid.c:29
+        resultvar = 18446744073709551104
+        sc_ret = <optimized out>
+#1  0x00007f3af73defbb in do_system (line=<optimized out>) at ../sysdeps/posix/system.c:148
+        __result = <optimized out>
+        _buffer = {__routine = 0x7f3af73df2b0 <cancel_handler>, __arg = 0x7ffecc8d3cec, __canceltype = 0, __prev = 0x0}
+        _avail = 1
+        status = 0
+        save = <optimized out>
+        pid = 26738
+        sa = {__sigaction_handler = {sa_handler = 0x1, sa_sigaction = 0x1}, sa_mask = {__val = {65536, 0 <repeats 15 times>}}, sa_flags = 0, sa_restorer = 0x0}
+        omask = {__val = {1024, 0, 0, 0, 0, 0, 4210784, 140732330233856, 0, 0, 140732330230864, 139891232929783, 0, 206158430232, 140732330229360, 140732330229168}}
+#2  0x000000000051e0cc in AP_HAL::dump_stack_trace () at ../../libraries/AP_HAL_SITL/system.cpp:90
+        dumpstack = 0x615c82 "Tools/scripts/dumpstack"
+        statbuf = {st_dev = 2054, st_ino = 3678411, st_nlink = 1, st_mode = 33261, st_uid = 1000, st_gid = 1000, __pad0 = 0, st_rdev = 0, st_size = 262, st_blksize = 4096, st_blocks = 8, st_atim = {tv_sec = 1560927358, tv_nsec = 984452312}, st_mtim = {tv_sec = 1560927329, tv_nsec = 536341455}, st_ctim = {tv_sec = 1560927329, tv_nsec = 536341455}, __glibc_reserved = {0, 0, 0}}
+        paths = {0x615c82 "Tools/scripts/dumpstack", 0x615c9a "APM/Tools/scripts/dumpstack"}
+        cmd = "sh Tools/scripts/dumpstack 26616 >segv_arducopter.26616.out 2>&1\000\000\000\000\000\000\000\000 ", '\000' <repeats 11 times>, "\376\177\000\000\000\000\000\000\000\000\000\000P@\215", <incomplete sequence \314>
+        progname = "/home/rc/workspace/Git/aaaaa/ardupilot/build/sitl/bin\000arducopter\000\377\377\377\377\377\377\377\000\000\000\000\002\000\000\000\377\377\377\377\377\377\377\377\021v`\000\000\000\000\000\b\254", <incomplete sequence \371\217>
+        p = 0x7ffecc8d4005 ""
+        n = 64
+        output_filepath = "segv_arducopter.26616.out\000\000\000:\177"
+        fd = 0
+        buf = "\b\000\000\000\000\000\000\000\020\000\000\000\060\000\000\000\260F\215\314\376\177\000\000\360E\215\314\376\177\000\000\224@\215\314\376\177\000\000\030\000\000\000\060\000\000\000\020G\215\314\376\177\000\000PF\215\314\376\177\000\000\340F\215\314\376\177\000\000 F\215\314\376\177", '\000' <repeats 14 times>, "\002", '\000' <repeats 11 times>, "\300\224D\370:\177\000\000\000B\215\314\376\177\000\000\250@?\370:\177\000\000\000\000\000\000\000\000\000\000h\221D\370:\177\000\000(B\215\314\376\177\000\000\037\313\"\370:\177\000\000\005\000\000\000\000\000\000\000\250@?\370:\177\000\000\001", '\000' <repeats 15 times>, "\001\000\000\000\000\000\000\000"...
+#3  0x000000000051e99a in _sig_segv (signum=11) at ../../libraries/AP_HAL_SITL/SITL_cmdline.cpp:52
+No locals.
+#4  <signal handler called>
+No locals.
+#5  0x00000000004035a0 in log@plt ()
+No symbol table info available.
+#6  0x0000000000521f79 in SITL::Aircraft::rand_normal (mean=0, stddev=1) at ../../libraries/SITL/SIM_Aircraft.cpp:342
+        y = 0.17766258175375982
+        x = 0.97961018792335408
+        r = 0.99120011323864043
+        d = 1.6041981089361337e-314
+        n1 = 6.9531009627164488e-310
+        result = 2.2912279503918433e-317
+        n2 = 1.217449027566069
+        n2_cached = 0
+#7  0x00000000005c1fb0 in SITL::Frame::calculate_forces (this=0x8889e0 <supported_frames>, aircraft=..., input=..., rot_accel=..., body_accel=...) at ../../libraries/SITL/SIM_Frame.cpp:272
+        thrust = {x = 0, y = 0, z = -17.0334473}
+        gyro_noise = 0.00174532924
+        accel_noise = 0.300000012
+        noise_scale = 0.590555549
+#8  0x0000000000530944 in SITL::MultiCopter::calculate_forces (this=0x10f0470, input=..., rot_accel=..., body_accel=...) at ../../libraries/SITL/SIM_Multicopter.cpp:51
+No locals.
+#9  0x00000000005309de in SITL::MultiCopter::update (this=0x10f0470, input=...) at ../../libraries/SITL/SIM_Multicopter.cpp:66
+        rot_accel = {x = -0.0972166359, y = 0.0965308696, z = 1.45611705e-06}
+#10 0x0000000000514987 in HALSITL::SITL_State::_fdm_input_local (this=0x883ec0 <sitlState>) at ../../libraries/AP_HAL_SITL/SITL_State.cpp:333
+        input = {servos = {1632, 1631, 1632, 1631, 0 <repeats 12 times>}, wind = {speed = 0, direction = 179.999817, turbulence = 0, dir_z = 0}}
+#11 0x0000000000514007 in HALSITL::SITL_State::_fdm_input_step (this=0x883ec0 <sitlState>) at ../../libraries/AP_HAL_SITL/SITL_State.cpp:153
+        last_pwm_input = 74060
+#12 0x00000000005143b3 in HALSITL::SITL_State::wait_clock (this=0x883ec0 <sitlState>, wait_time_usec=74073159) at ../../libraries/AP_HAL_SITL/SITL_State.cpp:207
+No locals.
+#13 0x0000000000515b86 in HALSITL::Scheduler::delay_microseconds (this=0x886920 <sitlScheduler>, usec=1133) at ../../libraries/AP_HAL_SITL/Scheduler.cpp:60
+        dtime = 0
+        start = 74072026
+#14 0x000000000045e80f in AP_HAL::Scheduler::delay_microseconds_boost (this=0x886920 <sitlScheduler>, us=1133) at ../../libraries/AP_HAL/Scheduler.h:30
+No locals.
+#15 0x00000000004636d0 in AP_InertialSensor::wait_for_sample (this=0x87a0d8 <copter+5688>) at ../../libraries/AP_InertialSensor/AP_InertialSensor.cpp:1379
+        wait_usec = 1133
+        now2 = 0
+        now = 74072026
+#16 0x0000000000484f80 in AP_Scheduler::loop (this=0x8793e8 <copter+2376>) at ../../libraries/AP_Scheduler/AP_Scheduler.cpp:236
+        sample_time_us = 0
+        loop_us = 8912256
+        time_available = 0
+#17 0x000000000040914c in Copter::loop (this=0x878aa0 <copter>) at ../../ArduCopter/Copter.cpp:223
+No locals.
+#18 0x0000000000512e7c in HAL_SITL::run (this=0x887200 <AP_HAL::get_HAL()::hal>, argc=11, argv=0x7ffecc8d5008, callbacks=0x878aa0 <copter>) at ../../libraries/AP_HAL_SITL/HAL_SITL_Class.cpp:176
+        now = 74072
+        __PRETTY_FUNCTION__ = "virtual void HAL_SITL::run(int, char* const*, AP_HAL::HAL::Callbacks*) const"
+        new_argv_offset = 11 '\v'
+        using_watchdog = false
+        last_watchdog_save = 2518
+#19 0x000000000040ac1e in main (argc=11, argv=0x7ffecc8d5008) at ../../ArduCopter/Copter.cpp:615
+No locals.
+A debugging session is active.
+
+	Inferior 1 [process 26616] will be detached.
+
+Quit anyway? (y or n) [answered Y; input not from terminal]
+[Inferior 1 (process 26616) detached]

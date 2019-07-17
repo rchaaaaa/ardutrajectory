@@ -617,7 +617,7 @@ MAV_RESULT GCS_MAVLINK_Copter::handle_command_long_packet(const mavlink_command_
         // param7 : altitude [metres]
 
         float takeoff_alt = packet.param7 * 100;      // Convert m to cm
-        copter.flightmode->set_traj_start_time(packet.param2);
+        copter.flightmode->set_traj_start_time(float(packet.param2), float(packet.param3));
 
         if (!copter.flightmode->do_user_takeoff(takeoff_alt, is_zero(packet.param3))) {
             return MAV_RESULT_FAILED;

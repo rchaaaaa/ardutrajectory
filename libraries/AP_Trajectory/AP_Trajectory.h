@@ -243,8 +243,10 @@ public:
         Twr_.c.y = rotFrameYinWorld_[2];
         Twr_.c.z = rotFrameZinWorld_[2];
         rotateOriginPath_ = rotateOriginPath;
-        rotateOriginVelocity_ = rotateOriginPath_ / velTime;
-        rotateOriginAcceleration_ = rotateOriginVelocity_ / positiveAccelTime;
+        if(velTime>0)
+            rotateOriginVelocity_ = rotateOriginPath_ / velTime;
+        if(positiveAccelTime>0)
+            rotateOriginAcceleration_ = rotateOriginVelocity_ / positiveAccelTime;
         Vector3f centerFinalPosInRotFrame;
         centerFinalPosInRotFrame.x = rotateRadius_ * cos(rotateRadian_);
         centerFinalPosInRotFrame.y = rotateRadius_ * sin(rotateRadian_);

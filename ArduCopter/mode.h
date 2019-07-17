@@ -55,8 +55,8 @@ public:
         return pos_control->get_desired_velocity();
     }
 
-    void set_traj_start_time(int takeoff_time){
-        traj_track->set_traj_start_time(takeoff_time);
+    void set_traj_start_time(float takeoff_time, float start_duration){
+        traj_track->set_traj_start_time(takeoff_time, start_duration);
     }
 
 protected:

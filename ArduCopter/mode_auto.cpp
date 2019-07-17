@@ -664,9 +664,9 @@ bool ModeAuto::get_wp(Location &destination)
 // update mission
 void ModeAuto::run_autopilot()
 {
-    if (wp_nav->get_wp_type())
-        trajectory.update();
-    else
+    // if (wp_nav->get_wp_type())
+    //     trajectory.update();
+    // else
         mission.update();
 }
 
@@ -937,6 +937,8 @@ void ModeAuto::spline_run()
     traj_track->update(reference);
 
     if(wp_nav->get_wp_type()){
+        traj_track->set_throttle();
+        attitude_control->input_euler_angle_roll_pitch_yaw(traj_track->get_roll(), traj_track->get_pitch(), traj_track->get_yaw(), true);
         return;
     }
 
@@ -1018,15 +1020,6 @@ void ModeAuto::nav_guided_run()
 void ModeAuto::loiter_run()
 {
     // if not armed set throttle to zero and exit immediately
-    uint64_t now_usec_epoch;
-    if (AP::rtc().get_utc_usec(now_usec_epoch) && wp_nav->get_wp_type())
-    {
-        if (now_usec_epoch >= traj_track->get_traj_start_time())
-        {
-            _mode = Auto_TrajectoryTrack;
-            return;
-        }
-    }
     if (is_disarmed_or_landed())
     {
         make_safe_spool_down();

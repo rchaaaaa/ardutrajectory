@@ -317,15 +317,15 @@ void AC_TrajTrack::update(Trajectory::reference reference) //enu
     _vel_target = Rot_ned2enu * reference.vel;
     _accel_target = Rot_ned2enu * reference.acc;
     _yaw_target = reference.yaw;
-    Vector3f pos,vel;
-    pos=_inav.get_position();
-    vel=_inav.get_velocity();
-    pos.z=-pos.z;
-    vel.z=-vel.z;
+    Vector3f pos, vel;
+    pos = _inav.get_position()/100;
+    vel = _inav.get_velocity()/100;
+    pos.z = -pos.z;
+    vel.z = -vel.z;
     _pos_error = Rot_ned2enu * pos - _pos_target;
     _vel_error = Rot_ned2enu * vel - _vel_target;
     Matrix3f att_rot = _ahrs.get_rotation_body_to_ned();
-    att_rot = Rot_ned2enu * att_rot;//body to enu
+    att_rot = Rot_ned2enu * att_rot; //body to enu
     Quaternion att_quat = rot2Quaternion(att_rot);
     Quaternion q_ref = acc2quaternion(_accel_target - _gravity, _yaw_target);
     Matrix3f R_ref = quat2RotMatrix(q_ref);
@@ -353,6 +353,13 @@ void AC_TrajTrack::update(Trajectory::reference reference) //enu
     a_rd = R_ref * D_ * R_ref.transposed() * _vel_target;
     _accel_desired = a_fb + _accel_target - a_rd - _gravity;
     Quaternion q_des = acc2quaternion(_accel_desired, _yaw_target);
+    Matrix3f R_body2enu_des = quat2RotMatrix(q_des);
+    Matrix3f R_body2ned_des = Rot_ned2enu.transposed() * R_body2enu_des;
+    float roll_target, pitch_target, yaw_target;
+    R_body2enu_des.to_euler(&roll_target, &pitch_target, &yaw_target);
+    _roll_target=roll_target;
+    _pitch_target=pitch_target;
+    _yaw_target=yaw_target;
     attcontroller(q_des, _accel_desired, att_quat);
 }
 
@@ -373,11 +380,11 @@ void AC_TrajTrack::attcontroller(Quaternion &ref_att, Vector3f &ref_acc, Quatern
     throttle_des = constrain_float(norm_thrust_const * throttle_des, 0.0, 1.0);
 }
 
-void AC_TrajTrack::get_rate_throttle(Vector3f &rate_cmd_, double &throttle_des_){
-    rate_cmd_=rate_cmd;
-    throttle_des_=throttle_des;
+void AC_TrajTrack::get_rate_throttle(Vector3f &rate_cmd_, double &throttle_des_)
+{
+    rate_cmd_ = rate_cmd;
+    throttle_des_ = throttle_des;
 }
-
 
 Quaternion AC_TrajTrack::quatMultiplication(Quaternion &q, Quaternion &p)
 {

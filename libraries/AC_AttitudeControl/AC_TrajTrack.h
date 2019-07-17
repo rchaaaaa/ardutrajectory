@@ -66,6 +66,9 @@ public:
     Quaternion rot2Quaternion(Matrix3f R);
     void get_rate_throttle(Vector3f &rate_cmd_, double &throttle_des_);
 
+    void set_throttle(){
+        _attitude_control.set_throttle_out(throttle_des, true, 2.0);
+    }
     ///
     /// z position controller
     ///
@@ -146,14 +149,14 @@ public:
         return true;
     }
 
-    void set_traj_start_time(int takeoff_time)
+    void set_traj_start_time(float takeoff_time, float start_duration)
     {
-        traj_start_epoch_time = takeoff_time + traj_start_time.get();
+        traj_start_epoch_time = takeoff_time + start_duration;
     }
 
-    uint64_t get_traj_start_time()
+    float get_traj_start_time()
     {
-        return traj_start_epoch_time * 1e6;
+        return (float)traj_start_epoch_time;
     }
 
     static const struct AP_Param::GroupInfo var_info[];
@@ -188,6 +191,7 @@ protected:
     const AP_InertialNav &_inav;
     const AP_Motors &_motors;
     AC_AttitudeControl &_attitude_control;
+    
 
     // parameters
     AP_Float kpxy; // XY acceleration filter cutoff frequency
@@ -248,7 +252,6 @@ protected:
     Vector3f _accel_error;   // acceleration error in cm/s/s
     Vector3f _gravity;
     Vector2f _vehicle_horiz_vel; // velocity to use if _flags.vehicle_horiz_vel_override is set
-    double _yaw_target;
     Matrix3f D_;
     Matrix3f Rot_ned2enu;
     LowPassFilterFloat _vel_error_filter; // low-pass-filter on z-axis velocity error

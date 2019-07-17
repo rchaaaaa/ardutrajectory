@@ -112,6 +112,33 @@ const AP_Param::GroupInfo AC_WPNav::var_info[] = {
     // @User: Standard
     AP_GROUPINFO("CT_OFSTMAX", 15, AC_WPNav, _wp_center_offset_max, 5.0),
 
+    // @Param: RADIUS
+    // @DisplayName: Waypoint Radius
+    // @Description: Defines the distance from a waypoint, that when crossed indicates the wp has been hit.
+    // @Units: cm
+    // @Range: 5 1000
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("ORG_CT_X", 16, AC_WPNav, _wp_origin_center_offset_x, 0.0),
+
+    // @Param: RADIUS
+    // @DisplayName: Waypoint Radius
+    // @Description: Defines the distance from a waypoint, that when crossed indicates the wp has been hit.
+    // @Units: cm
+    // @Range: 5 1000
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("ORG_CT_Y", 17, AC_WPNav, _wp_origin_center_offset_y, 0.0),
+
+    // @Param: RADIUS
+    // @DisplayName: Waypoint Radius
+    // @Description: Defines the distance from a waypoint, that when crossed indicates the wp has been hit.
+    // @Units: cm
+    // @Range: 5 1000
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("ORG_CT_Z", 18, AC_WPNav, _wp_origin_center_offset_z, 0.0),
+
     AP_GROUPEND};
 
 // Default constructor.
@@ -137,6 +164,9 @@ AC_WPNav::AC_WPNav(const AP_InertialNav &inav, const AP_AHRS_View &ahrs, AC_PosC
     // sanity check some parameters
     _wp_accel_cmss = MIN(_wp_accel_cmss, GRAVITY_MSS * 100.0f * tanf(ToRad(_attitude_control.lean_angle_max() * 0.01f)));
     _wp_radius_cm = MAX(_wp_radius_cm, WPNAV_WP_RADIUS_MIN);
+    center_pos.x = -_wp_origin_center_offset_x.get();
+    center_pos.y = -_wp_origin_center_offset_y.get();
+    center_pos.z = -_wp_origin_center_offset_z.get();
 }
 
 void AC_WPNav::trajectory_track_init()
@@ -782,26 +812,28 @@ bool AC_WPNav::set_spline_destination(const Vector3f &destination, bool terrain_
 ///     seg_type should be calculated by calling function based on the mission
 bool AC_WPNav::set_spline_origin_and_destination(const Vector3f &origin, const Vector3f &destination, bool terrain_alt, bool stopped_at_start, spline_segment_end_type seg_end_type, const Vector3f &next_destination)
 {
-    if (_wp_type.get())
+    if (true)
     {
+        Vector3f ori = origin / 100;
         Vector3f dest = destination / 100;
         Vector3f next_dest = next_destination / 100;
+        ori.z = -ori.z;
         dest.z = -dest.z;
         next_dest.z = -next_dest.z;
         switch (seg_end_type)
         {
         case SEGMENT_END_STOP:
             // if vehicle stops at the destination set destination velocity to 0.02 * distance vector from origin to destination
-            update_timefunc_solution(origin, dest, dest);
+            update_timefunc_solution(ori, dest, dest);
             break;
 
         case SEGMENT_END_STRAIGHT:
         case SEGMENT_END_SPLINE:
             // if next segment is splined, vehicle's final velocity should face parallel to the line from the origin to the next destination
-            update_timefunc_solution(origin, dest, next_dest);
+            update_timefunc_solution(ori, dest, next_dest);
             break;
         }
-        return true;
+        // return true;
     }
     // mission is "active" if wpnav has been called recently and vehicle reached the previous waypoint
     bool prev_segment_exists = (_flags.reached_destination && ((AP_HAL::millis() - _wp_last_update) < 1000));
@@ -970,7 +1002,9 @@ void AC_WPNav::update_timefunc_solution(const Vector3f &origin, const Vector3f &
 {
     uint64_t now_usec_epoch;
     AP::rtc().get_utc_usec(now_usec_epoch);
-    t0 = double(now_usec_epoch - _traj_track.get_traj_start_time()) * 1e-6;
+    double now_sec_epoch = (now_usec_epoch)*0.000001;
+    float traj_start_time = _traj_track.get_traj_start_time();
+    t0 = now_sec_epoch - traj_start_time;
     if (translation)
         delete translation;
     if (rotation)
@@ -990,6 +1024,7 @@ void AC_WPNav::update_timefunc_solution(const Vector3f &origin, const Vector3f &
     velocity_traj = vel_unit * vel_norm;
     acceleration_traj = vel_unit * acc_norm;
     t1 = vel_norm / acc_norm;
+
     dist_accel = acc_norm * t1 * t1;
     if (dist_accel <= distance)
     {
@@ -1009,10 +1044,11 @@ void AC_WPNav::update_timefunc_solution(const Vector3f &origin, const Vector3f &
     // t2 += t0;
     // t3 += t0;
     // t_rot += t3;
-    Vector3f pos_origin = _inav.get_position();
+    Vector3f pos_origin = _inav.get_position() / 100;
+    pos_origin.z *= -1;
     translation = new Trajectory::RotationState(pos_origin, origin);
     translation->setRotate(origin, Vector3f(0, 0, 1), 0, dest - origin, t1, t2, t3, 0, true, 1, Trajectory::Color(), Trajectory::Color(), Trajectory::Color(), t0);
-    if ((next_dest - dest).length() <= 0)
+    if ((next_dest - dest).length() > 0)
     {
         Vector3f next_vel_unit = (next_dest - dest).normalized();
         Vector3f rot_axis = vel_unit % next_vel_unit;
@@ -1163,7 +1199,9 @@ void AC_WPNav::calc_timefunc_pos_vel_acc(Vector3f &pos, Vector3f &vel, Vector3f 
 {
     uint64_t now_usec_epoch;
     AP::rtc().get_utc_usec(now_usec_epoch);
-    double elapsed_t = double(now_usec_epoch - _traj_track.get_traj_start_time()) * 1e-6;
+    double now_sec_epoch = (now_usec_epoch)*0.000001;
+    float traj_start_time = _traj_track.get_traj_start_time();
+    double elapsed_t = now_sec_epoch - traj_start_time;
     Trajectory::Color color;
     if (elapsed_t > t0 && elapsed_t <= t0 + t3)
         translation->getPos(elapsed_t, pos, vel, accel, color);

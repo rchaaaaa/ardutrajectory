@@ -304,6 +304,11 @@ protected:
     AP_Float _wp_center_offset_y;
     AP_Float _wp_center_offset_z;
     AP_Float _wp_center_offset_max;
+    AP_Float _wp_origin_center_offset_x;
+    AP_Float _wp_origin_center_offset_y;
+    AP_Float _wp_origin_center_offset_z;
+
+    Vector3f center_pos;
 
     // waypoint controller internal variables
     uint32_t _wp_last_update;    // time of last update_wpnav call
